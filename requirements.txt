@@ -1,0 +1,4 @@
+# 军棋 AI RL 训练 - 依赖
+torch>=2.0.0
+numpy>=1.24.0
+pyyaml>=6.0

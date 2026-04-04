@@ -1,0 +1,42 @@
+# 军棋 AI 训练配置
+
+# 设备
+device: cuda
+
+# 环境
+max_turns: 500
+reward_config:
+  alpha_piece: 0.3       # 吃子奖励系数
+  beta_info: 0.01        # 信息增益奖励系数
+  gamma_discount: 0.99   # 折扣因子
+  pbrs_weight: 0.1       # PBRS 势函数权重
+  terminal_reward: 1.0   # 终局奖励
+
+# 网络架构
+network:
+  hidden_dim: 128        # 卷积通道数
+  num_res_blocks: 12     # 残差块数量
+
+# PPO 超参数
+ppo:
+  lr: 0.0003             # 学习率
+  gamma: 0.99            # 折扣因子
+  gae_lambda: 0.95       # GAE λ
+  clip_eps: 0.2          # PPO clip ε
+  value_coeff: 0.5       # 价值损失权重
+  entropy_coeff: 0.01    # 熵正则化系数
+  belief_coeff: 0.1      # 信念辅助任务权重
+  max_grad_norm: 0.5     # 梯度裁剪
+  num_epochs: 4          # 每次更新的 epoch 数
+  mini_batch_size: 64    # mini-batch 大小
+
+# 自博弈
+self_play:
+  pool_size: 20          # 对手池大小
+
+# 训练控制
+episodes_per_update: 16     # 每次 PPO 更新收集的 episode 数
+snapshot_interval: 100      # 多少 episode 存一次对手快照
+checkpoint_interval: 1000   # 多少 episode 存一次检查点
+total_episodes: 100000      # 总训练 episode 数
+checkpoint_dir: ./checkpoints
